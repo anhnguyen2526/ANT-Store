@@ -1,32 +1,3 @@
-/* LOGO LƠ LỬNG GÓC TRÁI */
-.floating-logo {
-  position: fixed;       /* luôn hiển thị trên màn hình */
-  top: 0;                /* ngay trên cùng */
-  left: 0;               /* sát trái */
-  height: 60px;          /* chiều cao logo bằng menu */
-  padding: 10px;         /* khoảng cách từ mép trái */
-  display: flex;
-  align-items: center;   /* căn giữa theo chiều dọc menu */
-  z-index: 200;          /* trên menu */
-  background: rgba(0,0,0,0.0); /* nếu muốn trong suốt */
-}
-
-.floating-logo img {
-  height: 50px;      /* tăng size nếu muốn */
-  width: auto;
-  object-fit: contain;
-  pointer-events: auto; /* chắc chắn nhận click */
-  transition: transform 0.3s;
-}
-
-.floating-logo img:hover {
-  transform: scale(1.1);
-}
-
-/* Đẩy menu sang phải để không chèn logo */
-.menu {
-  padding-left: 80px;   /* khoảng cách đủ cho logo 40px + padding */
-}
 #lightbox {
   position: fixed;
   top: 0;

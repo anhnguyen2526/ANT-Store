@@ -22,32 +22,4 @@ window.addEventListener("load", () => {
   }, remaining);
 });
 
-// Lấy phần tử logo và ảnh bên trong
-const logo = document.querySelector('.floating-logo'); 
-const logoImg = logo.querySelector('img');
 
-// Khi click vào logo
-logo.addEventListener('click', () => {
-  lightbox.style.display = 'flex';
-  lightboxImg.src = logoImg.src; // ảnh hiện tại của logo
-});
-
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightbox-img');
-const closeBtn = document.querySelector('.close');
-
-logo.addEventListener('click', () => {
-  lightbox.style.display = 'flex';
-  lightboxImg.src = logoImg.src;
-});
-
-closeBtn.addEventListener('click', () => {
-  lightbox.style.display = 'none';
-});
-
-// Click ngoài ảnh cũng đóng
-lightbox.addEventListener('click', (e) => {
-  if (e.target === lightbox) {
-    lightbox.style.display = 'none';
-  }
-});
