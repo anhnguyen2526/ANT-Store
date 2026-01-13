@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANT Store</title>
-<link rel="icon" href="Facebook_icon.png" type="image/png">
+<link rel="icon" href="icon.png" type="image/png">
 
 <link rel="stylesheet" href="loading.css">
+<link rel="stylesheet" href="sp.css">
     <link rel="stylesheet" href="style.css">
-    
+
 <script type="module" src="sp.js"></script>
 <script type="module" src="script.js"></script>
 </head>
 
 <body>
+  
   <!-- LOADING -->
 <div class="loader" id="loader">
   <span>L</span>
@@ -27,18 +29,21 @@
 
 <!-- NỘI DUNG TRANG -->
 <div id="page-content" style="display:none;">
+<!-- LOGO LƠ LỬNG -->
+<div class="floating-logo">
+  <img src="icon.png" alt="ANT Store Logo">
+</div>
 
-  <!-- Menu -->
-  <nav class="menu">
-    <ul>
+<!-- Menu -->
+<nav class="menu">
+  <ul>
     <li><a href="index.html">Trang chủ</a></li>
     <li><a href="sp.html">Sản phẩm</a></li>
     <li><a href="gioithieu.html">Giới thiệu</a></li>
     <li><a href="lienhe.html">Liên hệ</a></li>
-      <span class="indicator"></span>
-    </ul>
-  </nav>
-
+    <span class="indicator"></span>
+  </ul>
+</nav>
     <!-- 2 Card -->
       <div class="container">
             <h1></h1>
@@ -67,5 +72,14 @@
   </div>
  
   </div>
+
+  <!-- LIGHTBOX HIỂN THỊ ẢNH LỚN -->
+<div id="lightbox" style="display:none;">
+  <div class="lightbox-content">
+    <span class="close">&times;</span>
+    <img id="lightbox-img" src="" alt="Logo lớn">
+  </div>
+</div>
+
 </body>
 </html>
