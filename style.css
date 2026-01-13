@@ -153,7 +153,10 @@ h1 {
 }
 .dauMocChau h2,
 .cafe h3,
-.hatdieu h4 {
+.hatdieu h4,
+.matong h5,
+.st25 h6,
+.nm584 h7 {
   font-size: clamp(36px, 2.5vw, 30px);  /* co giãn theo màn hình */
   margin: 0;
   letter-spacing: 1px;

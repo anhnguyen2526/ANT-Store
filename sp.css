@@ -30,3 +30,49 @@
   color: white;
   cursor: pointer;
 }
+/* ========================
+   PRODUCT GRID – CĂN THEO MENU
+======================== */
+.product-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);  /* 2 cột chia đều */
+  gap: 10px;                              /* khoảng cách giữa 2 cột */
+  
+  /* 👇 QUAN TRỌNG */
+  max-width: 800px;                       /* 👈 BẰNG chiều rộng menu */
+  margin: 0 auto;                         /* căn đúng trục giữa màn hình */
+  column-gap: 10px;  /* khoảng cách giữa 2 cột */
+  row-gap: 20px;     /* 👈 khoảng cách card trong cùng cột */
+  padding: 10px;
+}
+
+/* ========================
+   CARD
+======================== */
+.product-container .card {
+  width: 95%;                            /* chiếm full cột */
+  background-color: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px);
+  border-radius: 15px;
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-container .card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+/* ========================
+   MOBILE
+======================== */
+@media (max-width: 768px) {
+  .product-container {
+    grid-template-columns: 1fr;   /* 1 cột */
+    max-width: 95%;
+  }
+}
+
