@@ -67,3 +67,18 @@ body, html {
   33%  { transform: rotateZ(360deg); }
   100% { transform: rotateZ(360deg); }
 }
+/* mặc định desktop: ẩn br */
+.mobile-br {
+  display: none;
+}
+
+/* mobile < 700px: hiện br để xuống dòng */
+@media (max-width: 700px) {
+  .mobile-br {
+    display: inline;
+  }
+
+  h1 {
+    font-size: clamp(18px, 4vw, 24px); /* điều chỉnh chữ cho vừa mobile */
+  }
+}
