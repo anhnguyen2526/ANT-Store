@@ -70,9 +70,12 @@ body {
   padding: 15px 30px;
   color: white;
   font-weight: 600;
+  font-size: clamp(15px, 1.6vw, 18px); /* 👈 VỪA MÀN HÌNH */
+  letter-spacing: 0.3px;
   text-decoration: none;
   position: relative;
   z-index: 2;
+  transition: color 0.3s ease;
 }
 
 /* indicator */
@@ -194,6 +197,16 @@ h1 {
     max-width: none;
     height: 200px;
     padding: 20px;
+  }
+}
+@media (max-width: 700px) {
+  .menu {
+    padding: 10px 12px;
+  }
+
+  .menu ul li a {
+    padding: 12px 18px;
+    font-size: 15px;
   }
 }
 
