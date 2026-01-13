@@ -8,6 +8,23 @@ body, html {
   height: 100%;
   position: relative;
 }
+.icon-wrap {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.icon-wrap img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  animation: bounce 1.5s ease-in-out infinite;
+}
+
+/* hiệu ứng nhún nhẹ */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
 
 .loader {
   position: absolute;
@@ -24,7 +41,7 @@ body, html {
     display: inline-block;
     transform-origin: 0 70%;
      animation: 
-        flip 5s linear infinite,       /* xoay */
+        flip 4.8s linear infinite,       /* xoay */
         colorChange 3s infinite linear; /* đổi màu */
 }
 .loader.hide {
