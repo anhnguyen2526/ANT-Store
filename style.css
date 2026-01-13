@@ -1,0 +1,199 @@
+/* reset cơ bản */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(120deg, #012027, #203a43, #2c5364);
+  margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    padding: 20px;
+    margin-top: 40px; /* giảm từ 80px xuống 40px */
+}
+
+/* Menu */
+.menu {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  padding: 15px 20px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  position: relative;
+  z-index: 100;
+}
+/* hiệu ứng light quét */
+.menu::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.35),
+    transparent
+  );
+  animation: light 6s linear infinite;
+  z-index: 0;   /* QUAN TRỌNG */
+}
+
+.menu ul {
+  position: relative;
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu ul li {
+  position: relative;
+}
+
+.menu ul li a {
+  display: block;
+  padding: 15px 30px;
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  position: relative;
+  z-index: 2;
+}
+
+/* indicator */
+.menu .indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(45deg, #194b4f, #33fffc);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;       /* xếp H1/H2 + P từ trên xuống */
+  justify-content: center;
+  align-items: center;
+  gap: 10px;                    /* khoảng cách giữa H1/H2 và P */
+  width: 100%;
+}
+
+.card {
+  width: 90%;
+  max-width: 400px;
+  min-height: 250px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  animation: breathe 5s ease-in-out infinite;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: center;      /* căn giữa nội dung card theo dọc */
+  align-items: center;          /* căn giữa nội dung card theo ngang */
+  text-align: center;
+  padding: 20px;
+  position: relative;
+
+  /* đảm bảo 2 card bằng nhau */
+  flex: 0 0 200px;             /* fix chiều rộng bằng nhau */
+  height: 150px;               /* fix chiều cao bằng nhau */
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: light 6s linear infinite;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  padding: 20px;
+  gap: 10px;
+  width: 100%;
+}
+h1 {
+    font-size: clamp(20px, 2.5vw, 28px);  /* co giãn theo màn hình */
+  margin: 0;
+  letter-spacing: 1px;
+ color: rgb(206, 178, 18); /* màu chữ */
+}
+.dauMocChau h2,
+.cafe h3,
+.hatdieu h4 {
+  font-size: clamp(36px, 2.5vw, 30px);  /* co giãn theo màn hình */
+  margin: 0;
+  letter-spacing: 1px;
+  animation: colorChange 1s infinite linear;
+}
+
+
+@keyframes colorChange {
+  0%   { color: #e74c3c; }
+  25%  { color: #f1c40f; }
+  50%  { color: #2ecc71; }
+  75%  { color: #3498db; }
+  100% { color: #e74c3c; }
+}
+
+/* hiệu ứng phồng */
+@keyframes breathe {
+  0%, 100% {
+      transform:  scale(1);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  }
+  50% {
+      transform: scale(1.05);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* hiệu ứng ánh sáng chạy ngang */
+@keyframes light {
+  0% { transform: translateX(-100%) rotate(25deg); }
+  100% { transform: translateX(100%) rotate(25deg); }
+}
+
+/* responsive cho mobile */
+@media (max-width: 700px) {
+  .container {
+    flex-direction: column;  /* xuống dòng */
+  }
+  .card {
+    width: 90%;               /* chiếm gần hết màn hình */
+    max-width: none;
+    height: 200px;
+    padding: 20px;
+  }
+}
+

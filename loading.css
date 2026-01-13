@@ -1,0 +1,48 @@
+h1 {
+  text-align: center;   /* căn giữa ngang */
+  margin: 20px 0;       /* cách viền trên / dưới */
+   animation: colorChange 2s infinite linear;
+}
+body, html {
+  margin: 0;
+  height: 100%;
+  position: relative;
+}
+
+.loader {
+  position: absolute;
+  top: 50%;              /* nằm giữa dọc */
+  left: 50%;             /* nằm giữa ngang */
+  transform: translate(-50%, -50%);
+  perspective: 700px;
+  padding: 10px 20px;
+}
+.loader>span {
+    color: #546de5;
+    font-weight: 400px;
+    font-size: 2rem;
+    display: inline-block;
+    transform-origin: 0 70%;
+     animation: 
+        flip 5s linear infinite,       /* xoay */
+        colorChange 3s infinite linear; /* đổi màu */
+}
+/* Delay từng chữ */
+.loader > span:nth-child(1) { animation-delay: 0s, 1s; }
+.loader > span:nth-child(2) { animation-delay: 0.6s, 1.6s; }
+.loader > span:nth-child(3) { animation-delay: 1.2s, 2.2s; }
+.loader > span:nth-child(4) { animation-delay: 1.8s, 2.8s; }
+.loader > span:nth-child(5) { animation-delay: 2.4s, 3.4s; }
+.loader > span:nth-child(6) { animation-delay: 3s, 4s; }
+.loader > span:nth-child(7) { animation-delay: 3.6s, 4.6s; }
+@keyframes colorChange {
+  0%   { color: #e74c3c; }
+  25%  { color: #f1c40f; }
+  50%  { color: #2ecc71; }
+  75%  { color: #3498db; }
+  100% { color: #e74c3c; }
+}
+@keyframes flip {
+  33%  { transform: rotateZ(360deg); }
+  100% { transform: rotateZ(360deg); }
+}
