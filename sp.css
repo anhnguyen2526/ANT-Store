@@ -1,0 +1,61 @@
+/* LOGO LƠ LỬNG GÓC TRÁI */
+.floating-logo {
+  position: fixed;       /* luôn hiển thị trên màn hình */
+  top: 0;                /* ngay trên cùng */
+  left: 0;               /* sát trái */
+  height: 60px;          /* chiều cao logo bằng menu */
+  padding: 10px;         /* khoảng cách từ mép trái */
+  display: flex;
+  align-items: center;   /* căn giữa theo chiều dọc menu */
+  z-index: 200;          /* trên menu */
+  background: rgba(0,0,0,0.0); /* nếu muốn trong suốt */
+}
+
+.floating-logo img {
+  height: 50px;      /* tăng size nếu muốn */
+  width: auto;
+  object-fit: contain;
+  pointer-events: auto; /* chắc chắn nhận click */
+  transition: transform 0.3s;
+}
+
+.floating-logo img:hover {
+  transform: scale(1.1);
+}
+
+/* Đẩy menu sang phải để không chèn logo */
+.menu {
+  padding-left: 80px;   /* khoảng cách đủ cho logo 40px + padding */
+}
+#lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 500; /* cao hơn logo và menu */
+}
+
+.lightbox-content {
+  position: relative;
+}
+
+.lightbox-content img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.lightbox-content .close {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
