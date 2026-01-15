@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANT Store</title>
+<link rel="icon" href="icon.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+
+<script type="module" src="script.js"></script>
+</head>
+
+ <style>
+.typewriter {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+
+  font-size: clamp(12px, 1.2vw, 16px);
+  font-weight: bold;
+  color: white;
+
+  width: 0ch;
+
+  /* CHỈ CHẠY SAU KHI TẤT CẢ CARD HIỆN */
+  animation:
+    typing 3s steps(40, end) forwards;
+
+  animation-delay: 16s; /* SAU card cuối (15.8s) */
+}
+
+/* Gõ chữ từng ký tự */
+@keyframes typing {
+  from { width: 0ch; }
+  to   { width: 40ch; }
+}
+
+/* Khi gõ xong, con trỏ biến mất */
+.typewriter.done {
+  border-right: none;
+}
+</style>
+
+<body>
+  <!-- Menu -->
+  <nav class="menu">
+    <ul>
+    <li><a href="trangchu.html">Trang chủ</a></li>
+    <li><a href="sp.html">Sản phẩm</a></li>
+    <li><a href="gioithieu.html">Giới thiệu</a></li>
+    <li><a href="lienhe.html">Liên hệ</a></li>
+      <span class="indicator"></span>
+    </ul>
+  </nav>
+
+    <!-- 2 Card -->
+
+      <div class="container">
+            <h1>Sản phẩm tiêu biểu</h1>
+    <!-- cube trang trí -->
+       <div class="item">
+    <div class="cube-wrap delay-cube-1">
+    <div class="cube">
+      <div>
+        <div class="content">Dâu Mộc Châu</div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+
+ <div class="card delay-1">
+      <div class="content dauMocChau">
+      <h2>Dâu Mộc Châu</h2>
+        <p class="typewriter">Ăn một trái nhớ cả núi rừng</p>
+    </div>
+ </div>
+  
+      <!-- cube trang trí -->
+       <div class="item">
+    <div class="cube-wrap delay-cube-2">
+    <div class="cube">
+      <div>
+        <div class="content">Cafe chất</div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card delay-2">
+      <div class="content cafe">
+      <h3>Cafe chất</h3>
+        <p class="typewriter">Thơm ngon nguyên chất <br> Hương vị trường tồn</p>
+    </div>
+</div>
+
+        <!-- cube trang trí -->
+       <div class="item">
+    <div class="cube-wrap delay-cube-3">
+    <div class="cube">
+      <div>
+        <div class="content">Hạt điều</div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+
+<div class="card delay-3">
+    <div class="content hatdieu">
+      <h4>Hạt điều</h4>
+        <p class="typewriter">Giòn một hạt, mê cả đời - Ăn là nghiền</p>
+    </div>
+</div>
+
+  </div>
+
+ <footer class="footer">
+  <p>
+    © 2026 <strong>ANT Store</strong> — All rights reserved.  
+    <span>| Designed by NHH</span>
+  </p>
+</footer>
+
+</body>
+
+</html>

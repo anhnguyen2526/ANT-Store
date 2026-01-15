@@ -1,5 +1,5 @@
     function goToIndex() {
-      window.location.href = "menu.html";
+      window.location.href = "trangchu.html";
     }
 
     // Tự động sau 10s

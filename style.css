@@ -8,8 +8,17 @@
 
 body {
   min-height: 100vh;
-  background: linear-gradient(120deg, #012027, #203a43, #2c5364);
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+    120deg,
+    #ede0d4,
+    #ddb892,
+    #b08968,
+    #7f5539
+  );
   margin: 0;
+  
 }
 
 .container {
@@ -37,6 +46,7 @@ body {
   overflow: hidden;
   position: relative;
   z-index: 100;
+  color: #3e2723;
 }
 /* hiệu ứng light quét */
 .menu::before {
@@ -68,7 +78,7 @@ body {
 .menu ul li a {
   display: block;
   padding: 15px 30px;
-  color: white;
+  color: #3e2723;
   font-weight: 600;
   font-size: clamp(15px, 1.6vw, 18px); /* 👈 VỪA MÀN HÌNH */
   letter-spacing: 0.3px;
@@ -121,6 +131,26 @@ body {
   /* đảm bảo 2 card bằng nhau */
   flex: 0 0 200px;             /* fix chiều rộng bằng nhau */
   height: 150px;               /* fix chiều cao bằng nhau */
+
+    /* === THÊM MỚI === */
+  opacity: 0;
+  transform: scale(0.9);
+
+  animation:
+    cardIn 0.8s ease-out 4.2s forwards, /* card hiện SAU cube */
+    breathe 5s ease-in-out infinite 5.2s; /* breathe chạy SAU khi hiện */
+}
+
+/* === CARD HIỆN RA SAU CUBE === */
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .card::before {
@@ -149,7 +179,7 @@ h1 {
     font-size: clamp(20px, 2.5vw, 28px);  /* co giãn theo màn hình */
   margin: 0;
   letter-spacing: 1px;
- color: rgb(206, 178, 18); /* màu chữ */
+ color: rgb(255, 8, 0); /* màu chữ */
 }
 .dauMocChau h2,
 .cafe h3,
@@ -225,4 +255,173 @@ h1 {
   }
 }
 
+/* ===== CUBE TRONG CARD ===== */
+.item {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  height: 150px;   /* BẰNG card */
+  margin-bottom: 80px;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 
+  gap: 20px;
+}
+
+.cube-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+
+  opacity: 0;
+  z-index: 3;
+
+  animation:
+    cubeIn 0.5s ease forwards,
+    melt 4s ease-out forwards,
+    cubeHide 0.1s linear forwards;
+
+  animation-delay:
+    var(--delay),
+    calc(var(--delay) + 0.5s),
+    calc(var(--delay) + 4.6s);
+}
+
+@keyframes cubeHide {
+  to {
+    opacity: 0;
+    z-index: -1;
+  }
+}
+
+@keyframes cubeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.card .content {
+  position: relative;
+  z-index: 2;
+}
+
+.cube {
+  width: 150px;
+  height: 150px;
+  transform-style: preserve-3d;
+  transform: rotateX(-30deg) rotateY(35deg);
+}
+
+.cube > div {
+  position: absolute;
+    justify-content: center;
+  margin-left: -100px; /* dịch chuyển qua trái cho đều */
+  left: 50%;
+  top: 50%;
+  transform-style: preserve-3d;
+
+}
+
+.cube > div > div {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 200px;
+  height: 200px;
+  border-radius: 8px;
+  background: linear-gradient(
+    rgba(237,237,237,0.2),
+    rgba(153,153,153,0.1)
+  );
+  box-shadow:
+    0 0 4px rgba(255,255,255,0.3),
+    inset 0 0 4px rgba(55,255,255,0.2);
+  transform-origin: center;
+}
+
+/* === 6 MẶT CUBE ĐÚNG === */
+.cube > div > div:nth-child(1) { transform: translate3d(0,0,100px); }
+.cube > div > div:nth-child(2) { transform: rotateX(90deg) translate3d(0,0,100px); }
+.cube > div > div:nth-child(3) { transform: rotateX(180deg) translate3d(0,0,100px); }
+.cube > div > div:nth-child(4) { transform: rotateX(270deg) translate3d(0,0,100px); }
+.cube > div > div:nth-child(5) { transform: rotateY(90deg) translate3d(0,0,100px); }
+.cube > div > div:nth-child(6) { transform: rotateY(-90deg) translate3d(0,0,100px); }
+
+@keyframes melt {
+    0%{
+    transform: translate3d(0, 0, 0) scaleY(1);
+    }
+    90%{
+    transform: translate3d(0, 50px, 0) scaleY(0.05);
+    }
+    100%{
+    transform: translate3d(0, 50px, 0) scaleY(0);
+    }
+  
+}
+@keyframes puddle {
+    100% {
+        box-shadow: 0 0 0 80px rgba(255,255,255,0.15);
+    }
+}
+
+.card {
+  opacity: 0;
+  transform: scale(0.9);
+  animation:
+    cardIn 0.8s ease-out forwards,
+    breathe 5s ease-in-out infinite;
+    animation-delay: var(--delay), calc(var(--delay) + 0.8s);
+}
+
+/* delay cho từng card và cube*/
+/* ===== ITEM 1 ===== */
+.delay-cube-1 { --delay: 0s; }
+.delay-1      { --delay: 4.8s; }
+
+/* ===== ITEM 2 ===== */
+.delay-cube-2 { --delay: 5.5s; }
+.delay-2      { --delay: 10.3s; }
+
+/* ===== ITEM 3 ===== */
+.delay-cube-3 { --delay: 11s; }
+.delay-3      { --delay: 15.8s; }
+
+/* ===== FOOTER ===== */
+.footer {
+  width: 100vw;
+  margin-top: 60px;
+  padding: 20px 10px;
+  margin-top: auto;
+  text-align: center;
+  color: rgba(255,255,255,0.85);
+
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255,255,255,0.2);
+
+}
+
+.footer p {
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.footer strong {
+  color: #33fffc;
+}
+
+.footer span {
+  color: #33fffc;
+}
