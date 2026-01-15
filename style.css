@@ -231,28 +231,29 @@ h1 {
     padding: 20px;
   }
 }
+/* ===== MOBILE: MENU GIỮ HÀNG NGANG ===== */
 @media (max-width: 700px) {
   .menu {
-    padding: 10px 12px;
+    padding: 6px 6px;
   }
-   .menu ul {
-    flex-direction: column;        /* xếp các menu item từ trên xuống */
-    align-items: center;           /* căn giữa cả hàng */
-    gap: 10px;                     /* khoảng cách giữa các item */
+
+  .menu ul {
+    flex-direction: row;        /* 👈 GIỮ NGANG */
+    justify-content: space-between;
+    width: 100%;
   }
 
   .menu ul li a {
-    display: block;
-    width: 100%;                   /* chiếm hết chiều ngang */
-    text-align: center;            /* căn chữ giữa */
-    padding: 12px 0;               /* padding trên/dưới để đều */
-    font-size: 16px;               /* có thể tăng/giảm tuỳ ý */
+    padding: 8px 10px;          /* 👈 thu nhỏ padding */
+    font-size: 13px;            /* 👈 thu nhỏ chữ */
+    white-space: nowrap;        /* không xuống dòng */
   }
 
   .menu .indicator {
-    display: none;                 /* tạm ẩn indicator trên mobile */
+    display: none;              /* indicator tắt trên mobile */
   }
 }
+
 
 /* ===== CUBE TRONG CARD ===== */
 .item {
