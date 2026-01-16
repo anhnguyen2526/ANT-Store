@@ -24,9 +24,10 @@
 
   /* CHỈ CHẠY SAU KHI TẤT CẢ CARD HIỆN */
   animation:
-    typing 3s steps(40, end) forwards;
+    typing 5s steps(40, end) forwards;
 
-  animation-delay: 16s; /* SAU card cuối (15.8s) */
+  animation-delay: 3s; /* SAU card cuối */
+  
 }
 
 /* Gõ chữ từng ký tự */
@@ -85,14 +86,35 @@
   </div>
 </div>
 
+
+
+<section id="product-detail" class="product-detail hidden">
+  <button class="back-btn">← Quay lại</button>
+
+  <!-- PHẦN THÔNG TIN -->
+  <div class="product-info">
+    <h2 id="detail-title"></h2>
+    <p id="detail-desc"></p>
+  </div>
+
+  <!-- PHẦN ẢNH / VIDEO -->
+  <div class="product-media">
+    <div class="gallery"></div>
+  </div>
+</section>
+
+
+<div id="popup" class="popup hidden">
+  <span class="close">×</span>
+  <div class="popup-content"></div>
+</div>
+
  <footer class="footer">
   <p>
     © 2026 <strong>ANT Store</strong> — All rights reserved.  
     <span>| Designed by NHH</span>
   </p>
 </footer>
-
-<div class="cursor-glow"></div>
 </body>
 
 </html>

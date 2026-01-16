@@ -53,7 +53,7 @@ body {
 .menu::before {
   content: "";
   position: absolute;
-  inset: -50%;
+  inset: 0;
   background: linear-gradient(
     120deg,
     transparent,
@@ -61,7 +61,10 @@ body {
     transparent
   );
   animation: light 6s linear infinite;
-  z-index: 0;   /* QUAN TRỌNG */
+  pointer-events: none;
+  z-index: 0;
+
+  clip-path: inset(0 0 0 0);
 }
 
 .menu ul {
@@ -119,27 +122,26 @@ body {
   backdrop-filter: blur(15px);
   border: 1px solid rgba(255,255,255,0.25);
   box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-  animation: breathe 5s ease-in-out infinite;
   overflow: hidden;
 
   display: flex;
-  justify-content: center;      /* căn giữa nội dung card theo dọc */
-  align-items: center;          /* căn giữa nội dung card theo ngang */
+  justify-content: center;
+  align-items: center;
   text-align: center;
   padding: 20px;
   position: relative;
+  height: 150px;
 
-  
-  height: 150px;               /* fix chiều cao bằng nhau */
+  cursor: pointer; /* 👈 thêm cho rõ là click được */
 
-    /* === THÊM MỚI === */
   opacity: 0;
   transform: scale(0.9);
 
   animation:
-    cardIn 0.8s ease-out 4.2s forwards, /* card hiện SAU cube */
-    breathe 5s ease-in-out infinite 5.2s; /* breathe chạy SAU khi hiện */
+    cardIn 0.8s ease-out var(--delay) forwards,
+    breathe 5s ease-in-out calc(var(--delay) + 0.8s) infinite;
 }
+
 .card-wrapper {
   display: flex;
   justify-content: center;
@@ -168,6 +170,7 @@ body {
   inset: -50%;
   background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
   animation: light 6s linear infinite;
+  pointer-events: none; 
 }
 
 .content {
@@ -277,19 +280,111 @@ h1 {
   }
 }
 
-.card {
-  opacity: 0;
-  transform: scale(0.9);
-  animation:
-    cardIn 0.8s ease-out forwards,
-    breathe 5s ease-in-out infinite;
-    animation-delay: var(--delay), calc(var(--delay) + 0.8s);
-}
-
 /* delay cho từng card*/
 .delay-1      { --delay: 1s; }
 .delay-2      { --delay: 2s; }
 .delay-3      { --delay: 3s; }
+
+/* ===== DETAIL ===== */
+.hidden {
+  display: none !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+}
+
+.product-detail {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 25px;
+  color: white;
+  animation: fadeIn 0.6s ease;
+  position: relative; /* hoặc bỏ hẳn */
+  z-index: 10;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.back-btn {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+/* PHẦN THÔNG TIN */
+.product-info {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.product-info h2 {
+  font-size: clamp(24px, 3vw, 34px);
+  margin-bottom: 10px;
+}
+
+.product-info p {
+  font-size: 16px;
+  line-height: 1.7;
+  opacity: 0.9;
+  max-width: 700px;
+  margin: 0 auto;
+}
+/* ===== GALLERY ===== */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.gallery img,
+.gallery video {
+  width: 100%;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.gallery img:hover,
+.gallery video:hover {
+  transform: scale(1.05);
+}
+
+/* ===== POPUP ===== */
+.popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+.popup.hidden {
+  display: none;
+}
+
+.popup-content img,
+.popup-content video {
+  max-width: 92vw;
+  max-height: 92vh;
+}
+
+.popup .close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 34px;
+  color: white;
+  cursor: pointer;
+}
+
 
 /* ===== FOOTER ===== */
 .footer {
@@ -318,25 +413,6 @@ h1 {
 .footer span {
   color: #33fffc;
 }
-/* Vầng sáng */
-.cursor-glow {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  pointer-events: none;
-  background: radial-gradient(
-    circle,
-    rgba(51,255,252,0.25),
-    rgba(51,255,252,0.15),
-    transparent 70%
-  );
-  transform: translate(-50%, -50%);
-  z-index: 99999;
-  transition: transform 0.08s linear;
-}
 
 /* ===== FOOTER MOBILE 1 DÒNG ===== */
 @media (max-width: 480px) {
@@ -353,3 +429,4 @@ h1 {
     font-size: 11px;
   }
 }
+
