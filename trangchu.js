@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 🧺Thu hoạch trong ngày – ngọt dịu – an tâm cho cả gia đình<br>
 ✈️ Ship toàn quốc - Đặc biệt TP.HCM
 `,
-      media: ["img/dau1.jpg", "img/dau2.jpg", "video/dau.mp4"]
+      media: ["img/dau1.jpg","img/dau2.jpg", "img/dau3.jpg","img/dau4.jpg","img/dau5.jpg","img/dau6.jpg","img/dau7.jpg","img/dau8.jpg","video/dau1.mp4"]
     },
     {
       title: "Cafe chất",
