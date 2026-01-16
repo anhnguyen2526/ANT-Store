@@ -1,3 +1,15 @@
+:root {
+  --menu-height: 80px;
+}
+
+.menu {
+  height: var(--menu-height);
+}
+
+.product-container {
+  padding-top: calc(var(--menu-height) + 30px); /* 👈 khoảng cách menu → card */
+}
+
 #lightbox {
   position: fixed;
   top: 0;

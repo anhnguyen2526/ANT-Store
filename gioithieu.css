@@ -18,8 +18,9 @@
 
 .about-section h1,
 .about-section h2 {
-  color: #3e2723;
+  color: #904aca;
   margin-bottom: 12px;
+  text-align: center;
 }
 
 .about-section p {

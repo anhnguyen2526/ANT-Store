@@ -22,14 +22,16 @@ body {
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 40px;
-    padding: 20px;
-    margin-top: 40px; /* giảm từ 80px xuống 40px */
+  display: flex;
+  flex-direction: row;      /* 👈 HÀNG NGANG */
+  justify-content: center;
+  align-items: stretch;
+  gap: 30px;
+  padding: 20px;
+  margin-top: 40px;
+  flex-wrap: wrap;          /* đề phòng màn nhỏ */
 }
+
 
 /* Menu */
 .menu {
@@ -93,7 +95,7 @@ body {
   top: 0;
   left: 0;
   height: 100%;
-  background: linear-gradient(45deg, #194b4f, #33fffc);
+  background: linear-gradient(45deg, #f106f1, #e6f702);
   border-radius: 10px;
   transition: all 0.3s ease;
   z-index: 1;
@@ -127,8 +129,7 @@ body {
   padding: 20px;
   position: relative;
 
-  /* đảm bảo 2 card bằng nhau */
-  flex: 0 0 200px;             /* fix chiều rộng bằng nhau */
+  
   height: 150px;               /* fix chiều cao bằng nhau */
 
     /* === THÊM MỚI === */
@@ -138,6 +139,15 @@ body {
   animation:
     cardIn 0.8s ease-out 4.2s forwards, /* card hiện SAU cube */
     breathe 5s ease-in-out infinite 5.2s; /* breathe chạy SAU khi hiện */
+}
+.card-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 40px;
+  margin-top: 30px;   /* 👈 cách chữ "Sản phẩm tiêu biểu" */
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 /* === CARD HIỆN RA SAU CUBE === */
@@ -222,158 +232,49 @@ h1 {
 /* responsive cho mobile */
 @media (max-width: 700px) {
   .container {
-    flex-direction: column;  /* xuống dòng */
+    flex-direction: column;     /* 👈 DỌC */
+    align-items: center;
   }
+
   .card {
-    width: 90%;               /* chiếm gần hết màn hình */
-    max-width: none;
-    height: 200px;
-    padding: 20px;
+    width: 90%;
+    max-width: 320px;
+    height: 160px;
   }
 }
-/* ===== MOBILE: MENU GIỮ HÀNG NGANG ===== */
+
+/* ===== MOBILE MENU – INDICATOR Ở GIỮA ===== */
 @media (max-width: 700px) {
   .menu {
-    padding: 6px 6px;
+    padding: 8px 10px;
+    overflow: hidden; /* tránh indicator tràn */
   }
 
   .menu ul {
-    flex-direction: row;        /* 👈 GIỮ NGANG */
-    justify-content: space-between;
+    flex-direction: row;          /* giữ ngang */
+    justify-content: center;      /* 👈 QUAN TRỌNG */
+    align-items: center;
+    gap: 8px;                     /* khoảng cách đều */
     width: 100%;
   }
 
+  .menu ul li {
+    flex: 0 0 auto;               /* không bị giãn */
+  }
+
   .menu ul li a {
-    padding: 8px 10px;          /* 👈 thu nhỏ padding */
-    font-size: 13px;            /* 👈 thu nhỏ chữ */
-    white-space: nowrap;        /* không xuống dòng */
+    padding: 8px 12px;
+    font-size: 13px;
+    white-space: nowrap;
   }
 
   .menu .indicator {
-    display: none;              /* indicator tắt trên mobile */
+    height: 100%;
+    border-radius: 8px;
+    background: linear-gradient(45deg, #194b4f, #33fffc);
+    opacity: 0.85;
+    transition: all 0.3s ease;
   }
-}
-
-
-/* ===== CUBE TRONG CARD ===== */
-.item {
-  position: relative;
-  width: 100%;
-  max-width: 400px;
-  height: 150px;   /* BẰNG card */
-  margin-bottom: 80px;
-  
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-
-  gap: 20px;
-}
-
-.cube-wrap {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  pointer-events: none;
-
-  opacity: 0;
-  z-index: 3;
-
-  animation:
-    cubeIn 0.5s ease forwards,
-    melt 4s ease-out forwards,
-    cubeHide 0.1s linear forwards;
-
-  animation-delay:
-    var(--delay),
-    calc(var(--delay) + 0.5s),
-    calc(var(--delay) + 4.6s);
-}
-
-@keyframes cubeHide {
-  to {
-    opacity: 0;
-    z-index: -1;
-  }
-}
-
-@keyframes cubeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.7);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.card .content {
-  position: relative;
-  z-index: 2;
-}
-
-.cube {
-  width: 150px;
-  height: 150px;
-  transform-style: preserve-3d;
-  transform: rotateX(-30deg) rotateY(35deg);
-}
-
-.cube > div {
-  position: absolute;
-    justify-content: center;
-  margin-left: -100px; /* dịch chuyển qua trái cho đều */
-  left: 50%;
-  top: 50%;
-  transform-style: preserve-3d;
-
-}
-
-.cube > div > div {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 200px;
-  height: 200px;
-  border-radius: 8px;
-  background: linear-gradient(
-    rgba(237,237,237,0.2),
-    rgba(153,153,153,0.1)
-  );
-  box-shadow:
-    0 0 4px rgba(255,255,255,0.3),
-    inset 0 0 4px rgba(55,255,255,0.2);
-  transform-origin: center;
-}
-
-/* === 6 MẶT CUBE ĐÚNG === */
-.cube > div > div:nth-child(1) { transform: translate3d(0,0,100px); }
-.cube > div > div:nth-child(2) { transform: rotateX(90deg) translate3d(0,0,100px); }
-.cube > div > div:nth-child(3) { transform: rotateX(180deg) translate3d(0,0,100px); }
-.cube > div > div:nth-child(4) { transform: rotateX(270deg) translate3d(0,0,100px); }
-.cube > div > div:nth-child(5) { transform: rotateY(90deg) translate3d(0,0,100px); }
-.cube > div > div:nth-child(6) { transform: rotateY(-90deg) translate3d(0,0,100px); }
-
-@keyframes melt {
-    0%{
-    transform: translate3d(0, 0, 0) scaleY(1);
-    }
-    90%{
-    transform: translate3d(0, 50px, 0) scaleY(0.05);
-    }
-    100%{
-    transform: translate3d(0, 50px, 0) scaleY(0);
-    }
-  
-}
-@keyframes puddle {
-    100% {
-        box-shadow: 0 0 0 80px rgba(255,255,255,0.15);
-    }
 }
 
 .card {
@@ -385,18 +286,10 @@ h1 {
     animation-delay: var(--delay), calc(var(--delay) + 0.8s);
 }
 
-/* delay cho từng card và cube*/
-/* ===== ITEM 1 ===== */
-.delay-cube-1 { --delay: 0s; }
-.delay-1      { --delay: 4.8s; }
-
-/* ===== ITEM 2 ===== */
-.delay-cube-2 { --delay: 5.5s; }
-.delay-2      { --delay: 10.3s; }
-
-/* ===== ITEM 3 ===== */
-.delay-cube-3 { --delay: 11s; }
-.delay-3      { --delay: 15.8s; }
+/* delay cho từng card*/
+.delay-1      { --delay: 1s; }
+.delay-2      { --delay: 2s; }
+.delay-3      { --delay: 3s; }
 
 /* ===== FOOTER ===== */
 .footer {
@@ -424,4 +317,39 @@ h1 {
 
 .footer span {
   color: #33fffc;
+}
+/* Vầng sáng */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    rgba(51,255,252,0.25),
+    rgba(51,255,252,0.15),
+    transparent 70%
+  );
+  transform: translate(-50%, -50%);
+  z-index: 99999;
+  transition: transform 0.08s linear;
+}
+
+/* ===== FOOTER MOBILE 1 DÒNG ===== */
+@media (max-width: 480px) {
+  .footer p {
+    font-size: 11px;          /* thu nhỏ chữ */
+    white-space: nowrap;      /* không xuống dòng */
+    overflow: hidden;
+    text-overflow: ellipsis;  /* nếu quá thì ... */
+    letter-spacing: 0;
+  }
+
+  .footer strong,
+  .footer span {
+    font-size: 11px;
+  }
 }

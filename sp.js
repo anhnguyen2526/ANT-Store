@@ -21,3 +21,17 @@ window.addEventListener("load", () => {
     }, 600);
   }, remaining);
 });
+
+const glow = document.querySelector(".cursor-glow");
+
+/* PC */
+document.addEventListener("mousemove", e => {
+  glow.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+});
+
+/* Mobile */
+document.addEventListener("touchmove", e => {
+  const t = e.touches[0];
+  glow.style.transform = `translate(${t.clientX}px, ${t.clientY}px)`;
+});
+
