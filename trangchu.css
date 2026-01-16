@@ -1,0 +1,10 @@
+#detail-desc {
+  line-height: 1.7;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+#detail-desc strong {
+  font-size: 18px;
+  color: #d62828;
+}
