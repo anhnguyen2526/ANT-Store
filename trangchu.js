@@ -1,19 +1,23 @@
-const typewriters = document.querySelectorAll('.typewriter');
-
-typewriters.forEach(el => {
-  el.addEventListener('animationend', (e) => {
-    if (e.animationName === 'typing') {
-      el.classList.add('done'); // thêm class 'done' cho từng p
-    }
-  });
-});
-
-/***********************
- * PRODUCT + POPUP
- ***********************/
+/*********************************
+ * DOM READY
+ *********************************/
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* ==== BIẾN CŨ GIỮ NGUYÊN ==== */
+  /*********************************
+   * TYPEWRITER
+   *********************************/
+  const typewriters = document.querySelectorAll(".typewriter");
+  typewriters.forEach(el => {
+    el.addEventListener("animationend", e => {
+      if (e.animationName === "typing") {
+        el.classList.add("done");
+      }
+    });
+  });
+
+  /*********************************
+   * BIẾN DOM
+   *********************************/
   const cards = document.querySelectorAll(".card");
   const cardWrapper = document.querySelector(".card-wrapper");
 
@@ -23,49 +27,72 @@ document.addEventListener("DOMContentLoaded", () => {
   const gallery = document.querySelector(".gallery");
 
   const popup = document.getElementById("popup");
-  const popupContent = popup?.querySelector(".popup-content");
-  const closePopupBtn = popup?.querySelector(".close");
+  const popupContent = popup.querySelector(".popup-content");
+  const closePopupBtn = popup.querySelector(".close");
 
-  if (!cards.length || !detail || !popup) return;
+  if (!cards.length || !detail) return;
 
-  /* ==== DATA ==== */
+  /*********************************
+   * DATA SẢN PHẨM
+   *********************************/
   const data = [
     {
       title: "Dâu Mộc Châu",
       desc: `
-<strong>🍓 Dâu tươi Mộc Châu-Sơn La chính gốc</strong><br>
-🌿 Trồng tại cao nguyên mát lành, chín tự nhiên, không chất bảo quản<br>
-🧺Thu hoạch trong ngày – ngọt dịu – an tâm cho cả gia đình<br>
-✈️ Ship toàn quốc - Đặc biệt TP.HCM
+<strong>🍓 Dâu tươi Mộc Châu - Sơn La</strong><br>
+🌿 Trồng tại cao nguyên mát lành<br>
+🧺 Thu hoạch trong ngày – không bảo quản<br>
+✈️ Ship toàn quốc
 `,
-      media: ["img/dau1.jpg","img/dau2.jpg", "img/dau3.jpg","img/dau4.jpg","img/dau5.jpg","img/dau6.jpg","img/dau7.jpg","img/dau8.jpg","img/dau9.jpg","video/dau1.mp4"]
+      media: [
+        "img/dau1.jpg","img/dau2.jpg","img/dau3.jpg",
+        "img/dau4.jpg","img/dau5.jpg","img/dau6.jpg",
+        "img/dau7.jpg","img/dau8.jpg","img/dau9.jpg",
+        "video/dau1.mp4"
+      ]
     },
     {
       title: "Cafe chất",
-      desc: "Cafe rang mộc, đậm vị, không pha trộn.",
+      desc: "Cafe rang mộc – đậm vị – không pha trộn.",
       media: ["img/cafe1.jpg", "img/cafe2.jpg"]
     },
     {
       title: "Hạt điều",
-      desc: "Hạt điều rang muối, giòn béo tự nhiên.",
+      desc: "Hạt điều rang muối – giòn béo tự nhiên.",
       media: ["img/dieu1.jpg", "video/dieu.mp4"]
+    },
+    {
+      title: "Mật ong",
+      desc: "Mật ong nguyên chất.",
+      media: ["img/dieu1.jpg"]
+    },
+    {
+      title: "Gạo ST25",
+      desc: "Gạo ST25 – hạt ngọc Việt.",
+      media: ["img/dieu1.jpg"]
+    },
+    {
+      title: "Nước mắm 584",
+      desc: "Nước mắm nhĩ truyền thống.",
+      media: ["img/dieu1.jpg"]
     }
   ];
 
-  /***********************
-   * CLICK CARD → DETAIL
-   ***********************/
+  /*********************************
+   * CLICK CARD → CHI TIẾT
+   *********************************/
   cards.forEach((card, index) => {
+    if (!data[index]) return;
+
     card.addEventListener("click", () => {
       cardWrapper.style.display = "none";
       detail.classList.remove("hidden");
 
-title.textContent = data[index].title;
-title.style.color = "#2d6a4f"; 
-desc.innerHTML = data[index].desc;
+      title.textContent = data[index].title;
+      title.style.color = "#2d6a4f";
+      desc.innerHTML = data[index].desc;
 
       gallery.innerHTML = "";
-
       data[index].media.forEach(src => {
         if (src.endsWith(".mp4")) {
           gallery.insertAdjacentHTML(
@@ -80,25 +107,23 @@ desc.innerHTML = data[index].desc;
         }
       });
 
-      window.scrollTo({ top: detail.offsetTop - 40, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
   });
 
-  /***********************
+  /*********************************
    * BACK BUTTON
-   ***********************/
+   *********************************/
   const backBtn = document.querySelector(".back-btn");
-  if (backBtn) {
-    backBtn.addEventListener("click", () => {
-      detail.classList.add("hidden");
-      cardWrapper.style.display = "flex";
-      gallery.innerHTML = "";
-    });
-  }
+  backBtn?.addEventListener("click", () => {
+    detail.classList.add("hidden");
+    cardWrapper.style.display = "grid";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 
-  /***********************
-   * OPEN POPUP
-   ***********************/
+  /*********************************
+   * POPUP MEDIA
+   *********************************/
   document.addEventListener("click", e => {
     const target = e.target.closest(".gallery img, .gallery video");
     if (!target) return;
@@ -108,9 +133,6 @@ desc.innerHTML = data[index].desc;
     document.body.style.overflow = "hidden";
   });
 
-  /***********************
-   * CLOSE POPUP
-   ***********************/
   const closePopup = () => {
     popup.classList.add("hidden");
     popupContent.innerHTML = "";
@@ -118,15 +140,60 @@ desc.innerHTML = data[index].desc;
   };
 
   closePopupBtn?.addEventListener("click", closePopup);
-
   popup.addEventListener("click", e => {
     if (e.target === popup) closePopup();
   });
-
   document.addEventListener("keydown", e => {
-    if (e.key === "Escape" && !popup.classList.contains("hidden")) {
-      closePopup();
-    }
+    if (e.key === "Escape") closePopup();
   });
+
+  /*********************************
+   * MUA HÀNG
+   *********************************/
+  const qtyInput = document.getElementById("qty");
+  const boxSelect = document.getElementById("box");
+  const totalEl = document.getElementById("total");
+
+  const PRICE = 120000;
+
+  function calcTotal() {
+    const qty = +qtyInput.value;
+    const box = +boxSelect.value;
+    const total = qty * box * PRICE;
+    totalEl.textContent = total.toLocaleString("vi-VN") + "₫";
+  }
+
+  qtyInput?.addEventListener("input", calcTotal);
+  boxSelect?.addEventListener("change", calcTotal);
+
+  document.querySelector(".qty-plus")?.addEventListener("click", () => {
+    qtyInput.value++;
+    calcTotal();
+  });
+
+  document.querySelector(".qty-minus")?.addEventListener("click", () => {
+    qtyInput.value = Math.max(1, qtyInput.value - 1);
+    calcTotal();
+  });
+
+  document.querySelector(".cancel-btn")?.addEventListener("click", () => {
+    qtyInput.value = 1;
+    boxSelect.value = "0.5";
+    calcTotal();
+  });
+
+document.querySelector(".buy-btn").addEventListener("click", () => {
+  const item = {
+    title: document.getElementById("detail-title").textContent,
+    qty: +document.getElementById("qty").value,
+    box: document.getElementById("box").value,
+    total: parseInt(
+      document.getElementById("total").textContent.replace(/\D/g,"")
+    )
+  };
+
+  addToCart(item);      // 👉 dùng cart.js
+  showCartToast();      // 👉 hiện ghi chú
+});
 
 });

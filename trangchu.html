@@ -7,8 +7,12 @@
 <link rel="icon" href="icon.png" type="image/png">
     <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="trangchu.css">
-<script type="module" src="script.js"></script>
-<script type="module" src="trangchu.js"></script>
+<link rel="stylesheet" href="cart.css">
+
+<script src="script.js" defer></script>
+<script src="trangchu.js" defer></script>
+<script src="cart.js" defer></script>
+
 </head>
 
  <style>
@@ -147,6 +151,53 @@
 <section id="product-detail" class="product-detail hidden">
   <button class="back-btn">← Quay lại</button>
 
+ <!-- BOX MUA HÀNG -->
+  <div class="buy-box">
+    <!-- DÒNG 1 -->
+    <div class="buy-row">
+      <!-- SỐ LƯỢNG -->
+      <div class="field">
+        <label>Số lượng</label>
+        <div class="qty">
+          <button class="qty-minus">−</button>
+          <input type="number" min="1" max="1000000" value="1" id="qty">
+          <button class="qty-plus">+</button>
+        </div>
+      </div>
+
+      <!-- LOẠI -->
+      <div class="field">
+        <label>Loại</label>
+        <select id="size">
+          <option value="small">Nhỏ</option>
+          <option value="medium">Vừa</option>
+          <option value="large">Đại</option>
+        </select>
+      </div>
+
+      <!-- HỘP -->
+      <div class="field">
+        <label>Hộp</label>
+        <select id="box">
+          <option value="0.5">1/2 kg</option>
+          <option value="1">1 kg</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- DÒNG 2 -->
+    <div class="buy-total">
+      Thành tiền: <strong id="total">0₫</strong>
+    </div>
+
+    <!-- DÒNG 3 -->
+    <div class="buy-actions">
+      <button class="buy-btn">Mua hàng</button>
+      <button class="cancel-btn">Hủy</button>
+    </div>
+  </div>
+
+
   <!-- PHẦN THÔNG TIN -->
   <div class="product-info">
     <h2 id="detail-title"></h2>
@@ -165,7 +216,7 @@
   <div class="popup-content"></div>
 </div>
 
- <footer class="footer">
+<footer class="footer">
   <p>
     © 2026 <strong>ANT Store</strong> — All rights reserved.  
     <span>| Designed by NHH</span>
