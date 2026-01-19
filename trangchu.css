@@ -9,6 +9,116 @@
   color: #d62828;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;   /* 👈 CHỮ TRÊN – CARD DƯỚI */
+  justify-content: center;
+  align-items: stretch;
+  gap: 30px;
+  padding: 20px;
+  margin-top: 40px;
+  flex-wrap: wrap;          /* đề phòng màn nhỏ */
+}
+
+.content {
+  display: flex;
+  flex-direction: column;       /* xếp H1/H2 + P từ trên xuống */
+  align-items: center;
+  gap: 4px;                    /* khoảng cách giữa H1/H2 và P */
+  width: 100%;
+}
+
+.card {
+  width: 90%;
+  max-width: 400px;
+  min-height: 250px;
+  height: auto;          /* 👈 cho card giãn */
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  overflow: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  height: 150px;
+
+  cursor: pointer; /* 👈 thêm cho rõ là click được */
+
+  opacity: 0;
+  transform: scale(0.9);
+
+  animation:
+    cardIn 0.8s ease-out var(--delay) forwards,
+    breathe 5s ease-in-out calc(var(--delay) + 0.8s) infinite;
+}
+
+.card-wrapper {
+  display: grid;
+  width: 100%;
+  max-width: 1200px;      /* 👈 khóa chiều rộng PC */
+  margin: 30px auto 0;
+  flex-direction: row;
+  gap: 30px;
+
+  /* MẶC ĐỊNH MOBILE: 2 CARD / DÒNG */
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+}
+
+
+h1 {
+    font-size: clamp(20px, 2.5vw, 28px);  /* co giãn theo màn hình */
+  margin: 0;
+  text-align: center;
+  letter-spacing: 1px;
+ color: rgb(255, 8, 0); /* màu chữ */
+}
+.dauMocChau h2,
+.cafe h3,
+.hatdieu h4,
+.matong h5,
+.st25 h6,
+.nm584 h7 {
+  font-size: clamp(20px, 2vw, 22px);  /* co giãn theo màn hình */
+  margin: 0;
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+  animation: colorChange 5s infinite linear;
+  transform: translateY(-10px); /* 👈 nhích lên trên */
+  margin-top: -20px;
+  line-height: 1.2;    /* 👈 gọn chữ */
+}
+
+/* delay cho từng card*/
+.delay-1      { --delay: 1s; }
+.delay-2      { --delay: 1.2s; }
+.delay-3      { --delay: 1.4s; }
+.delay-4      { --delay: 1.6s; }
+.delay-5      { --delay: 1.8s; }
+.delay-6      { --delay: 2s; }
+
+/* ===== DETAIL ===== */
+.hidden {
+  display: none !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+}
+
+.product-detail {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 25px;
+  color: white;
+  animation: fadeIn 0.6s ease;
+  position: relative; /* hoặc bỏ hẳn */
+  z-index: 10;
+}
 /* ===== 2 THUMB TRONG CARD ===== */
 .thumbs {
   margin-top: auto;        /* 👈 đẩy ảnh xuống đáy card */
@@ -31,4 +141,10 @@
 .thumbs img:hover {
   transform: scale(1.05);
   transition: 0.3s ease;
+}
+
+@media (min-width: 900px) {
+  .card-wrapper {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
