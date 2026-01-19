@@ -46,8 +46,7 @@
   text-align: center;
   padding: 20px;
   position: relative;
-  height: 150px;
-
+ 
   cursor: pointer; /* 👈 thêm cho rõ là click được */
 
   opacity: 0;
@@ -232,9 +231,13 @@ h1 {
 .buy-box {
   background: rgba(255,255,255,0.12);
   backdrop-filter: blur(10px);
-  padding: 15px;
+  padding: 12px 14px;
   border-radius: 14px;
-  min-width: 320px;
+
+  width: fit-content;     /* ✅ co theo nội dung */
+  max-width: 90%;
+  margin: 0 auto 20px;    /* ✅ canh giữa */
+
   color: white;
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
@@ -242,8 +245,9 @@ h1 {
 /* DÒNG 1 */
 .buy-row {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
+   justify-content: center;
 }
 
 .field {
@@ -259,8 +263,9 @@ h1 {
 
 .field select,
 .field input {
-  padding: 6px;
+  padding: 5px 6px;
   border-radius: 6px;
+  font-size: 13px;
   border: none;
   outline: none;
 }
@@ -288,32 +293,40 @@ h1 {
 
 /* DÒNG 2 */
 .buy-total {
-  margin: 12px 0;
+  margin: 10px 0;
   font-size: 15px;
+  text-align: center;
+  color: rgb(43, 15, 206);
 }
 
 /* DÒNG 3 */
 .buy-actions {
   display: flex;
+  justify-content: center;   /* 👈 canh giữa ngang */
+  align-items: center;       /* 👈 canh giữa dọc */
   gap: 10px;
 }
-
-.buy-btn {
-  flex: 1;
-  background: #2ecc71;
-  border: none;
-  padding: 10px;
+.buy-btn,
+.cancel-btn {
+  min-width: 110px;          /* 👈 cùng độ rộng */
+  padding: 6px 14px;
+  font-size: 13px;
   border-radius: 8px;
-  font-weight: bold;
   cursor: pointer;
+  border: none;
+
+  display: flex;
+  justify-content: center;   /* 👈 chữ giữa nút */
+  align-items: center;
+}
+.buy-btn {
+  background: #5cf305b2;
+  color: white;
 }
 
 .cancel-btn {
   background: #ff4d4d;
-  border: none;
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
+  color: white;
 }
 
 /* MOBILE */

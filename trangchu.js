@@ -107,6 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
 
+      calcTotal(); // 👈 tính lại tiền khi mở sản phẩm
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
   });
@@ -152,19 +153,30 @@ document.addEventListener("DOMContentLoaded", () => {
    *********************************/
   const qtyInput = document.getElementById("qty");
   const boxSelect = document.getElementById("box");
+  const sizeSelect = document.getElementById("size");
   const totalEl = document.getElementById("total");
 
-  const PRICE = 120000;
+  // 👇 GIÁ THEO LOẠI
+  const PRICE_BY_SIZE = {
+    small: 90000,
+    medium: 120000,
+    large: 140000
+  };
 
   function calcTotal() {
-    const qty = +qtyInput.value;
-    const box = +boxSelect.value;
-    const total = qty * box * PRICE;
+    const qty  = +qtyInput.value;
+    const box  = +boxSelect.value;
+    const size = sizeSelect.value;
+
+    const price = PRICE_BY_SIZE[size] || 0;
+    const total = qty * box * price;
+
     totalEl.textContent = total.toLocaleString("vi-VN") + "₫";
   }
 
   qtyInput?.addEventListener("input", calcTotal);
   boxSelect?.addEventListener("change", calcTotal);
+  sizeSelect?.addEventListener("change", calcTotal);
 
   document.querySelector(".qty-plus")?.addEventListener("click", () => {
     qtyInput.value++;
@@ -177,23 +189,32 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.querySelector(".cancel-btn")?.addEventListener("click", () => {
-    qtyInput.value = 1;
+    qtyInput.value = 0;
     boxSelect.value = "0.5";
+    sizeSelect.value = "small";
     calcTotal();
   });
 
-document.querySelector(".buy-btn").addEventListener("click", () => {
-  const item = {
-    title: document.getElementById("detail-title").textContent,
-    qty: +document.getElementById("qty").value,
-    box: document.getElementById("box").value,
-    total: parseInt(
-      document.getElementById("total").textContent.replace(/\D/g,"")
-    )
-  };
+  /*********************************
+   * ADD TO CART
+   *********************************/
+  document.querySelector(".buy-btn")?.addEventListener("click", () => {
+    const size = sizeSelect.value;
 
-  addToCart(item);      // 👉 dùng cart.js
-  showCartToast();      // 👉 hiện ghi chú
-});
+    const sizeLabel =
+      size === "small" ? "Nhỏ" :
+      size === "medium" ? "Vừa" : "To";
+
+    const item = {
+      title: `${title.textContent} (${sizeLabel})`,
+      qty: +qtyInput.value,
+      box: boxSelect.value,
+      price: PRICE_BY_SIZE[size],
+      total: parseInt(totalEl.textContent.replace(/\D/g, ""))
+    };
+
+    addToCart(item);   // từ cart.js
+    showCartToast();   // từ cart.js
+  });
 
 });
