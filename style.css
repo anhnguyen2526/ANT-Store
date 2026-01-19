@@ -107,7 +107,6 @@ body {
 .content {
   display: flex;
   flex-direction: column;       /* xếp H1/H2 + P từ trên xuống */
-  justify-content: center;
   align-items: center;
   gap: 10px;                    /* khoảng cách giữa H1/H2 và P */
   width: 100%;
@@ -117,6 +116,7 @@ body {
   width: 90%;
   max-width: 400px;
   min-height: 250px;
+  height: auto;          /* 👈 cho card giãn */
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(15px);
@@ -179,7 +179,7 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start; /* 👈 chữ trên, ảnh dưới */
   align-items: center;
   text-align: center;
   color: white;
@@ -199,10 +199,14 @@ h1 {
 .matong h5,
 .st25 h6,
 .nm584 h7 {
-  font-size: clamp(36px, 2.5vw, 30px);  /* co giãn theo màn hình */
-  margin: 0;
+  font-size: clamp(20px, 2vw, 22px);  /* co giãn theo màn hình */
+  margin: -10px;
+  margin-bottom: 6px;
   letter-spacing: 1px;
   animation: colorChange 1s infinite linear;
+  transform: translateY(-8px); /* 👈 nhích lên trên */
+  margin-top: -22px;
+  line-height: 1.2;    /* 👈 gọn chữ */
 }
 
 
@@ -242,7 +246,7 @@ h1 {
   .card {
     width: 90%;
     max-width: 320px;
-    height: 160px;
+    height: auto;          /* 👈 cho card giãn */
   }
 }
 

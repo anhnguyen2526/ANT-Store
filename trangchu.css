@@ -8,3 +8,27 @@
   font-size: 18px;
   color: #d62828;
 }
+
+/* ===== 2 THUMB TRONG CARD ===== */
+.thumbs {
+  margin-top: auto;        /* 👈 đẩy ảnh xuống đáy card */
+  position: absolute;
+  bottom: 2px;
+  justify-content: center;
+  gap: 10px;
+  margin-top: auto; /* đẩy ảnh xuống đáy */
+  width: 100%;
+  z-index: 1;
+}
+.thumbs img {
+  width: 45%;              /* 👈 2 hình chia đều */
+  max-width: 120px;        /* không quá to */
+  aspect-ratio: 1 / 1;     /* vuông đẹp */
+  object-fit: cover;       /* không méo */
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.35);
+}
+.thumbs img:hover {
+  transform: scale(1.05);
+  transition: 0.3s ease;
+}
