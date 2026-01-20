@@ -146,8 +146,8 @@
             <p class="typewriter">Cá cơm từ Nha Trang <br> Ngon đến giọt nhĩ cuối cùng</p>
           <!-- 2 hình nhỏ -->
     <div class="thumbs">
-      <img src="img/dau9.jpg" alt="">
-      <img src="img/dau1.jpg" alt="">
+      <img src="img/nm584/60nb.png" alt="">
+      <img src="img/nm584/40nb.png" alt="">
     </div>
 
     </div>
@@ -159,51 +159,75 @@
 <section id="product-detail" class="product-detail hidden">
   <button class="back-btn">← Quay lại</button>
 
- <!-- BOX MUA HÀNG -->
-  <div class="buy-box">
-    <!-- DÒNG 1 -->
-    <div class="buy-row">
-      <!-- SỐ LƯỢNG -->
-      <div class="field">
-        <label>Số lượng</label>
-        <div class="qty">
-          <button class="qty-minus">−</button>
-          <input type="number" min="1" max="1000000" value="1" id="qty">
-          <button class="qty-plus">+</button>
-        </div>
-      </div>
+ <!-- BOX MUA HÀNG: TRÁI CÂY / SP THƯỜNG -->
+<div class="buy-box fruit-box">
 
-      <!-- LOẠI -->
-      <div class="field">
-        <label>Loại</label>
-        <select id="size">
-          <option value="small">Nhỏ</option>
-          <option value="medium">Vừa</option>
-          <option value="large">Đại</option>
-        </select>
-      </div>
-
-      <!-- HỘP -->
-      <div class="field">
-        <label>Hộp</label>
-        <select id="box">
-          <option value="0.5">1/2 kg</option>
-          <option value="1">1 kg</option>
-        </select>
+  <div class="buy-row">
+    <div class="field">
+      <label>Số lượng</label>
+      <div class="qty">
+        <button class="qty-minus">−</button>
+        <input type="number" min="1" value="1" id="qty">
+        <button class="qty-plus">+</button>
       </div>
     </div>
 
-    <!-- DÒNG 2 -->
-    <div class="buy-total">
-      Thành tiền: <strong id="total">0₫</strong>
+    <div class="field">
+      <label>Loại</label>
+      <select id="size">
+        <option value="small">Nhỏ</option>
+        <option value="medium">Vừa</option>
+        <option value="large">Đại</option>
+      </select>
     </div>
 
-    <!-- DÒNG 3 -->
-    <div class="buy-actions">
-      <button class="buy-btn">Thêm vào giỏ</button>
-      <button class="cancel-btn">Hủy</button>
+    <div class="field">
+      <label>Hộp</label>
+      <select id="box">
+        <option value="0.5">1/2 kg</option>
+        <option value="1">1 kg</option>
+      </select>
     </div>
   </div>
+
+  <div class="buy-total">
+    Thành tiền: <strong id="total">0₫</strong>
+  </div>
+
+  <div class="buy-actions">
+    <button class="buy-btn">Thêm vào giỏ</button>
+    <button class="cancel-btn">Hủy</button>
+  </div>
+</div>
+
+<!-- BOX MUA HÀNG: NƯỚC MẮM -->
+<div class="buy-box fishsauce-box hidden">
+
+  <div class="buy-row">
+    <div class="field">
+      <label>Số lượng</label>
+      <input type="number" id="fs-qty" value="1" min="1">
+    </div>
+
+    <div class="field">
+      <label>Độ đạm</label>
+      <select id="fs-protein"></select>
+    </div>
+
+    <div class="field">
+      <label>Chai</label>
+      <input id="fs-bottle" disabled>
+    </div>
+  </div>
+
+  <div class="buy-total">
+    Thành tiền: <strong id="fs-total">0₫</strong>
+  </div>
+
+  <div class="buy-actions">
+    <button class="buy-btn-fs">Thêm vào giỏ</button>
+  </div>
+</div>
 
 
   <!-- PHẦN THÔNG TIN -->

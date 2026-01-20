@@ -30,6 +30,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const popupContent = popup.querySelector(".popup-content");
   const closePopupBtn = popup.querySelector(".close");
 
+  const fruitBox = document.querySelector(".fruit-box");
+  const fsBox = document.querySelector(".fishsauce-box");
+
   if (!cards.length || !detail) return;
 
   /*********************************
@@ -73,8 +76,24 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       title: "Nước mắm 584",
-      desc: "Nước mắm nhĩ truyền thống.",
-      media: ["img/dieu1.jpg"]
+      buyType: "fishsauce",
+      options: {
+        "12": { bottle: "5 lít",  price: 90000 },
+        "25": { bottle: "500ml", price: 35000 },
+        "30": { bottle: "500ml", price: 60000 },
+        "40": { bottle: "500ml", price: 80000 },
+        "60": { bottle: "200ml", price: 120000 }
+      },
+      desc: `
+<strong>🍾 Nước mắm 584 - Nha Trang</strong><br>
+Nước mắm 584 Nha Trang được chế biến từ nguyên liệu cá cơm ở vùng biển Nha Trang. Cá cơm được lựa chọn kỹ nhằm đảm bảo chất lượng của nước mắm. Đúc kết từ phương pháp cổ truyền tại địa phương, qui trình sản xuất nước mắm 584 Nha Trang luôn đảm bảo nước mắm sản xuất ra đạt chất lượng cao với hương vị thơm ngon, đậm đà; có màu vàng rơm óng ánh; đảm bảo an toàn vệ sinh thực phẩm.<br>
+Màu vàng rơm – vị đậm đà<br>
+✈️ Ship toàn quốc - Đặc biệt TP.HCM
+`,
+      media: [
+        "img/nm584/nm1.jpg","img/nm584/nm2.jpg",
+        "img/nm584/nm3.jpg","img/nm584/nm4.jpg"
+      ]
     }
   ];
 
@@ -82,32 +101,40 @@ document.addEventListener("DOMContentLoaded", () => {
    * CLICK CARD → CHI TIẾT
    *********************************/
   cards.forEach((card, index) => {
-    if (!data[index]) return;
+    const product = data[index];
+    if (!product) return;
 
     card.addEventListener("click", () => {
       cardWrapper.style.display = "none";
       detail.classList.remove("hidden");
 
-      title.textContent = data[index].title;
+      title.textContent = product.title;
       title.style.color = "#2d6a4f";
-      desc.innerHTML = data[index].desc;
+      desc.innerHTML = product.desc;
 
+      // ===== CHUYỂN BUY BOX =====
+      fruitBox.classList.add("hidden");
+      fsBox.classList.add("hidden");
+
+      if (product.buyType === "fishsauce") {
+        fsBox.classList.remove("hidden");
+        initFishSauce(product);
+      } else {
+        fruitBox.classList.remove("hidden");
+        calcTotal();
+      }
+
+      // ===== GALLERY =====
       gallery.innerHTML = "";
-      data[index].media.forEach(src => {
-        if (src.endsWith(".mp4")) {
-          gallery.insertAdjacentHTML(
-            "beforeend",
-            `<video src="${src}" controls playsinline></video>`
-          );
-        } else {
-          gallery.insertAdjacentHTML(
-            "beforeend",
-            `<img src="${src}" alt="">`
-          );
-        }
+      product.media.forEach(src => {
+        gallery.insertAdjacentHTML(
+          "beforeend",
+          src.endsWith(".mp4")
+            ? `<video src="${src}" controls></video>`
+            : `<img src="${src}">`
+        );
       });
 
-      calcTotal(); // 👈 tính lại tiền khi mở sản phẩm
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
   });
@@ -115,8 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /*********************************
    * BACK BUTTON
    *********************************/
-  const backBtn = document.querySelector(".back-btn");
-  backBtn?.addEventListener("click", () => {
+  document.querySelector(".back-btn")?.addEventListener("click", () => {
     detail.classList.add("hidden");
     cardWrapper.style.display = "grid";
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -134,11 +160,11 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.style.overflow = "hidden";
   });
 
-  const closePopup = () => {
+  function closePopup() {
     popup.classList.add("hidden");
     popupContent.innerHTML = "";
     document.body.style.overflow = "";
-  };
+  }
 
   closePopupBtn?.addEventListener("click", closePopup);
   popup.addEventListener("click", e => {
@@ -149,18 +175,17 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /*********************************
-   * MUA HÀNG
+   * MUA HÀNG (TRÁI CÂY)
    *********************************/
   const qtyInput = document.getElementById("qty");
   const boxSelect = document.getElementById("box");
   const sizeSelect = document.getElementById("size");
   const totalEl = document.getElementById("total");
 
-  // 👇 GIÁ THEO LOẠI
   const PRICE_BY_SIZE = {
-    small: 90000,
-    medium: 120000,
-    large: 140000
+    small: 180000,
+    medium: 220000,
+    large: 260000
   };
 
   function calcTotal() {
@@ -189,32 +214,69 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.querySelector(".cancel-btn")?.addEventListener("click", () => {
-    qtyInput.value = 0;
+    qtyInput.value = 1;
     boxSelect.value = "0.5";
     sizeSelect.value = "small";
     calcTotal();
   });
 
-  /*********************************
-   * ADD TO CART
-   *********************************/
   document.querySelector(".buy-btn")?.addEventListener("click", () => {
     const size = sizeSelect.value;
-
     const sizeLabel =
       size === "small" ? "Nhỏ" :
       size === "medium" ? "Vừa" : "To";
 
-    const item = {
+    addToCart({
       title: `${title.textContent} (${sizeLabel})`,
       qty: +qtyInput.value,
       box: boxSelect.value,
       price: PRICE_BY_SIZE[size],
       total: parseInt(totalEl.textContent.replace(/\D/g, ""))
-    };
+    });
 
-    addToCart(item);   // từ cart.js
-    showCartToast();   // từ cart.js
+    showCartToast();
   });
+
+  /*********************************
+   * NƯỚC MẮM
+   *********************************/
+  function initFishSauce(product) {
+    const qtyEl = document.getElementById("fs-qty");
+    const proteinEl = document.getElementById("fs-protein");
+    const bottleEl = document.getElementById("fs-bottle");
+    const totalEl = document.getElementById("fs-total");
+
+    proteinEl.innerHTML = "";
+
+    Object.keys(product.options).forEach(p => {
+      proteinEl.insertAdjacentHTML(
+        "beforeend",
+        `<option value="${p}">${p}° đạm</option>`
+      );
+    });
+
+    function calc() {
+      const opt = product.options[proteinEl.value];
+      bottleEl.value = opt.bottle;
+      totalEl.textContent =
+        (qtyEl.value * opt.price).toLocaleString("vi-VN") + "₫";
+    }
+
+    qtyEl.oninput = calc;
+    proteinEl.onchange = calc;
+    calc();
+
+    document.querySelector(".buy-btn-fs").onclick = () => {
+      addToCart({
+        title: `${product.title} (${proteinEl.value}° - ${bottleEl.value})`,
+        qty: +qtyEl.value,
+        box: bottleEl.value,
+        price: product.options[proteinEl.value].price,
+        total: +totalEl.textContent.replace(/\D/g, "")
+      });
+
+      showCartToast();
+    };
+  }
 
 });

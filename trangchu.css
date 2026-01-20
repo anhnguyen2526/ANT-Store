@@ -180,16 +180,17 @@ h1 {
 /* ===== GALLERY ===== */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
 }
 
 .gallery img,
 .gallery video {
   width: 100%;
-  border-radius: 14px;
+  height: 120px;          /* 👈 chiều cao cố định */
+  object-fit: cover;      /* 👈 tự crop cho vừa khung */
+  border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.3s ease;
 }
 
 .gallery img:hover,
@@ -233,7 +234,7 @@ h1 {
   backdrop-filter: blur(10px);
   padding: 12px 14px;
   border-radius: 14px;
-
+  margin-top: -10px;  
   width: fit-content;     /* ✅ co theo nội dung */
   max-width: 90%;
   margin: 0 auto 20px;    /* ✅ canh giữa */
@@ -263,7 +264,7 @@ h1 {
 
 .field select,
 .field input {
-  padding: 5px 6px;
+  padding: 4px 6px;       /* 👈 thấp hơn */
   border-radius: 6px;
   font-size: 13px;
   border: none;
@@ -277,8 +278,9 @@ h1 {
 }
 
 .qty button {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
   border: none;
   background: #33fffc;
   color: #000;
@@ -287,7 +289,9 @@ h1 {
 }
 
 .qty input {
-  width: 60px;
+  width: 48px;
+  height: 24px;
+  font-size: 12px;
   text-align: center;
 }
 
@@ -329,6 +333,10 @@ h1 {
   color: white;
 }
 
+.hidden {
+  display: none !important;
+}
+
 /* MOBILE */
 @media (max-width: 700px) {
   .detail-header {
@@ -352,4 +360,106 @@ h1 {
     max-width: 320px;
     height: auto;          /* 👈 cho card giãn */
   }
+}
+
+/* ===== BOX NƯỚC MẮM ===== */
+.fishsauce-box {
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.18),
+    rgba(255,255,255,0.08)
+  );
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.3);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+}
+
+/* input + select đẹp hơn */
+.fishsauce-box input,
+.fishsauce-box select {
+  background: rgba(255,255,255,0.85);
+  color: #222;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+/* tổng tiền nổi bật */
+.fishsauce-box .buy-total {
+  color: #ffd166;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* nút mua */
+.buy-btn-fs {
+  background: linear-gradient(135deg, #ffb703, #fb8500);
+  color: #000;
+  font-weight: bold;
+  padding: 7px 18px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.buy-btn-fs:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 700px) {
+  .fishsauce-box .buy-row {
+    gap: 6px;
+  }
+
+  .fishsauce-box .field {
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .fishsauce-box input,
+  .fishsauce-box select {
+    width: 100%;
+  }
+}
+
+/* ===== DETAIL LAYOUT PC – ÁP DỤNG CHO TẤT CẢ SP ===== */
+@media (min-width: 900px) {
+
+  .product-detail {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  /* gom info + box mua bên trái */
+  .product-info {
+    text-align: left;
+    order: 1;
+  }
+
+  .buy-box {
+    order: 2;
+    margin-left: 0;
+    margin-top: -25px;
+  }
+
+  .product-media {
+    order: 3;
+  }
+}
+
+/* ===== THU GỌN FIELD TRONG BOX MUA ===== */
+.buy-box .field {
+  align-items: center;
+}
+
+/* input + select không chiếm full */
+.buy-box input,
+.buy-box select {
+  width: auto;
+  min-width: 70px;      /* 👈 khống chế chiều ngang */
+  max-width: 90px;
+  height: 26px;
+  padding: 3px 6px;
+  font-size: 12px;
 }
