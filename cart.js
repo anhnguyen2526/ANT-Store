@@ -1,6 +1,8 @@
 /*********************************
  * CART CONFIG
  *********************************/
+let CART_HTML = "";
+
 const CART_KEY = "ANT_CART";
 const ZALO_PHONE = "840909886861"; // 👈 ĐỔI SỐ ZALO CỦA BẠN (84xxx)
 
@@ -95,6 +97,9 @@ document.addEventListener("DOMContentLoaded", () => {
   `;
   document.body.appendChild(popup);
 
+/* 👇 LƯU HTML GIỎ HÀNG GỐC */
+CART_HTML = popup.innerHTML;
+
   updateCartCount();
 
   cartBtn.onclick = () => {
@@ -180,7 +185,12 @@ function removeItem(index) {
  *********************************/
 function showCheckout() {
   const cart = getCart();
-  if (!cart.length) return;
+
+  /* ===== CHECK GIỎ HÀNG TRỐNG ===== */
+  if (!cart.length) {
+    alert("🛒 Bạn chưa mua hàng!");
+    return;
+  }
 
   const total = cart.reduce((s, i) => s + i.total, 0);
   const popup = document.querySelector(".cart-popup");
@@ -222,21 +232,57 @@ function showCheckout() {
 }
 
 function closeCheckout() {
-  document.querySelector(".cart-popup").classList.remove("active");
+  const popup = document.querySelector(".cart-popup");
+  popup.innerHTML = CART_HTML;   // 👈 khôi phục giỏ hàng
+  popup.classList.add("active");
+  renderCart();
+
+  // gắn lại event
+  popup.querySelector(".cart-buy").onclick = showCheckout;
+  popup.querySelector(".cart-clear").onclick = () => {
+    localStorage.removeItem(CART_KEY);
+    updateCartCount();
+    popup.classList.remove("active");
+  };
 }
 
 function sendZalo() {
-  const name = document.getElementById("cus-name").value;
-  const phone = document.getElementById("cus-phone").value;
-  const address = document.getElementById("cus-address").value;
+  const name = document.getElementById("cus-name").value.trim();
+  const phone = document.getElementById("cus-phone").value.trim();
+  const address = document.getElementById("cus-address").value.trim();
 
+  /* ===== VALIDATE ===== */
+  if (!name || !phone || !address) {
+    alert("⚠️ Vui lòng nhập đầy đủ Họ tên, Số điện thoại và Địa chỉ!");
+    return;
+  }
+
+  // chỉ cho phép số (9–11 số)
+  if (!/^\d{9,11}$/.test(phone)) {
+    alert("⚠️ Số điện thoại không hợp lệ (chỉ nhập số, 9–11 chữ số)");
+    return;
+  }
+
+  /* ===== BUILD MESSAGE ===== */
   const cart = getCart();
   let msg = `🛒 ĐƠN HÀNG\n`;
-  cart.forEach(i => {
-    msg += `- ${i.title}: ${i.qty} × ${i.box}kg = ${i.total}₫\n`;
-  });
-  msg += `\n👤 ${name}\n📞 ${phone}\n🏠 ${address}`;
 
-  window.open(`https://zalo.me/${ZALO_PHONE}?text=${encodeURIComponent(msg)}`);
+  cart.forEach(i => {
+    msg += `- ${i.title}: ${i.qty} × ${i.box}kg = ${i.total.toLocaleString("vi-VN")}₫\n`;
+  });
+
+  msg += `
+------------------
+👤 ${name}
+📞 ${phone}
+🏠 ${address}
+`;
+
+  /* ===== SEND ===== */
+  window.open(
+    `https://zalo.me/${ZALO_PHONE}?text=${encodeURIComponent(msg)}`,
+    "_blank"
+  );
 }
+
 

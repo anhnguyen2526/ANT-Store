@@ -3,15 +3,24 @@
 ============================== */
 .cart-float {
   position: fixed;
-  top: 80px;               /* 👈 dưới menu */
+  top: 80px;               /* dưới menu */
   right: 20px;
+
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;     /* 👈 TRÒN 100% */
+
   background: #ff4757;
   color: white;
-  padding: 14px 16px;
-  border-radius: 50px;
-  font-size: 18px;
+
+  display: flex;          /* 👈 canh giữa emoji */
+  align-items: center;
+  justify-content: center;
+
+  font-size: 26px;        /* 👈 emoji to đẹp */
   cursor: pointer;
   z-index: 99999;
+
   box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
@@ -29,6 +38,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+}
+.cart-toast {
+  position: absolute;
+  bottom: -32px;
+  background: #000;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: .3s;
+  pointer-events: none;
+}
+
+.cart-toast.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ==============================
