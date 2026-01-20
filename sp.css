@@ -1,85 +1,28 @@
-.menu {
-  height: var(--menu-height);
-}
-.product-container {
-  padding-top: 40px;   /* đơn giản – ổn định */
-}
-#lightbox {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 500; /* cao hơn logo và menu */
-}
-
-.lightbox-content {
-  position: relative;
-}
-
-.lightbox-content img {
-  max-width: 90vw;
-  max-height: 90vh;
-  object-fit: contain;
-  border-radius: 10px;
-}
-
-.lightbox-content .close {
-  position: absolute;
-  top: -20px;
-  right: -20px;
-  font-size: 2rem;
-  color: white;
+.music-btn {
+  display: inline-flex;
+  margin-left: 8px;
   cursor: pointer;
-}
-/* ========================
-   PRODUCT GRID – CĂN THEO MENU
-======================== */
-.product-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);  /* 2 cột chia đều */
-  gap: 10px;                              /* khoảng cách giữa 2 cột */
-  
-  /* 👇 QUAN TRỌNG */
-  max-width: 800px;                       /* 👈 BẰNG chiều rộng menu */
-  margin: 0 auto;                         /* căn đúng trục giữa màn hình */
-  column-gap: 10px;  /* khoảng cách giữa 2 cột */
-  row-gap: 20px;     /* 👈 khoảng cách card trong cùng cột */
-  padding: 10px;
+  user-select: none;
 }
 
-/* ========================
-   CARD
-======================== */
-.product-container .card {
-  width: 95%;                            /* chiếm full cột */
-  background-color: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(15px);
-  border-radius: 15px;
-  border: 1px solid rgba(255,255,255,0.25);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  padding: 15px;
-  text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
-  --delay: 0s; /* 👈 THÊM DÒNG NÀY */
+.music-icon {
+  display: inline-block;
+  transform-origin: 50% 50%;
 }
 
-.product-container .card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+/* Khi nhạc chạy */
+.music-btn.music-playing .music-icon {
+  animation: spinMusic 2.5s linear infinite;
+  opacity: 1;
 }
 
-/* ========================
-   MOBILE
-======================== */
-@media (max-width: 768px) {
-  .product-container {
-    grid-template-columns: 1fr;   /* 1 cột */
-    max-width: 95%;
-  }
+/* Khi pause */
+.music-btn.music-paused .music-icon {
+  animation: none;
+  opacity: 0.5;
 }
 
+@keyframes spinMusic {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
