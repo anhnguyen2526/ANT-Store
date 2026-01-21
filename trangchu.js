@@ -48,32 +48,32 @@ document.addEventListener("DOMContentLoaded", () => {
 ✈️ Ship toàn quốc
 `,
       media: [
-        "img/dau1.jpg","img/dau2.jpg","img/dau3.jpg",
-        "img/dau4.jpg","img/dau5.jpg","img/dau6.jpg",
-        "img/dau7.jpg","img/dau8.jpg","img/dau9.jpg",
-        "video/dau1.mp4"
+        "img/daumocchau/dau1.jpg","img/daumocchau/dau2.jpg","img/daumocchau/dau3.jpg",
+        "img/daumocchau/dau4.jpg","img/ddaumocchau/au5.jpg","img/daumocchau/dau6.jpg",
+        "img/daumocchau/dau7.jpg","img/daumocchau/dau8.jpg","img/daumocchau/dau9.jpg",
+        "video/daumocchau/dau1.mp4"
       ]
     },
-    {
-      title: "Cafe chất",
-      desc: "Cafe rang mộc – đậm vị – không pha trộn.",
-      media: ["img/cafe1.jpg", "img/cafe2.jpg"]
-    },
+    // {
+    //   title: "Cafe chất",
+    //   desc: "Cafe rang mộc – đậm vị – không pha trộn.",
+    //   media: ["img/cafe1.jpg", "img/cafe2.jpg"]
+    // },
     {
       title: "Hạt điều",
       desc: "Hạt điều rang muối – giòn béo tự nhiên.",
       media: ["img/dieu1.jpg", "video/dieu.mp4"]
     },
-    {
-      title: "Mật ong",
-      desc: "Mật ong nguyên chất.",
-      media: ["img/dieu1.jpg"]
-    },
-    {
-      title: "Gạo ST25",
-      desc: "Gạo ST25 – hạt ngọc Việt.",
-      media: ["img/dieu1.jpg"]
-    },
+    // {
+    //   title: "Mật ong",
+    //   desc: "Mật ong nguyên chất.",
+    //   media: ["img/dieu1.jpg"]
+    // },
+    // {
+    //   title: "Gạo ST25",
+    //   desc: "Gạo ST25 – hạt ngọc Việt.",
+    //   media: ["img/dieu1.jpg"]
+    // },
     {
       title: "Nước mắm 584",
       buyType: "fishsauce",
