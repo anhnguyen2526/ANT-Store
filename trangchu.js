@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  /*********************************
+ /*********************************
    * BIẾN DOM
    *********************************/
   const cards = document.querySelectorAll(".card");
@@ -30,8 +30,69 @@ document.addEventListener("DOMContentLoaded", () => {
   const popupContent = popup.querySelector(".popup-content");
   const closePopupBtn = popup.querySelector(".close");
 
+/* ===== POPUP CHO SLIDE NƯỚC MẮM ===== */
+document.addEventListener("click", e => {
+  const img = e.target.closest(".fs-slide img");
+  if (!img) return;
+
+  popup.classList.remove("hidden");
+  popupContent.innerHTML = `
+    <img src="${img.src}">
+    <p style="color:white;text-align:center;margin-top:10px;">
+      ${img.dataset.caption || ""}
+    </p>
+  `;
+  document.body.style.overflow = "hidden";
+});
+
   const fruitBox = document.querySelector(".fruit-box");
   const fsBox = document.querySelector(".fishsauce-box");
+
+  /* ===== SLIDER NƯỚC MẮM ===== */
+  const fsSlider = document.querySelector(".fs-slider");
+
+  const fsPrev = document.querySelector(".fs-nav.left");
+  const fsNext = document.querySelector(".fs-nav.right");
+
+  let fsSlides = [];
+  let fsIndex = 0;
+
+fsPrev.onclick = () => {
+  fsIndex--;
+  updateFishSlide();
+};
+
+fsNext.onclick = () => {
+  fsIndex++;
+  updateFishSlide();
+};
+
+  function initFishSlide(slides) {
+  const wrap = document.querySelector(".fs-slide");
+  fsSlides = slides;
+  fsIndex = 0;
+
+  wrap.innerHTML = "";
+  slides.forEach(s => {
+    wrap.insertAdjacentHTML(
+      "beforeend",
+      `<img src="${s.src}" data-caption="${s.caption || ""}">`
+    );
+  });
+
+  updateFishSlide();
+}
+
+function updateFishSlide() {
+  const wrap = document.querySelector(".fs-slide");
+  if (!wrap || !wrap.children.length) return; // 👈 FIX
+
+  const maxIndex = fsSlides.length - 3;
+  fsIndex = Math.max(0, Math.min(fsIndex, maxIndex));
+
+  const imgWidth = wrap.children[0].offsetWidth + 10;
+  wrap.style.transform = `translateX(-${fsIndex * imgWidth}px)`;
+}
 
   if (!cards.length || !detail) return;
 
@@ -49,9 +110,9 @@ document.addEventListener("DOMContentLoaded", () => {
 `,
       media: [
         "img/daumocchau/dau1.jpg","img/daumocchau/dau2.jpg","img/daumocchau/dau3.jpg",
-        "img/daumocchau/dau4.jpg","img/ddaumocchau/au5.jpg","img/daumocchau/dau6.jpg",
+        "img/daumocchau/dau4.jpg","img/daumocchau/dau5.jpg","img/daumocchau/dau6.jpg",
         "img/daumocchau/dau7.jpg","img/daumocchau/dau8.jpg","img/daumocchau/dau9.jpg",
-        "video/daumocchau/dau1.mp4"
+        "img/daumocchau/daumocchau.jpg","video/dau1.mp4"
       ]
     },
     // {
@@ -77,6 +138,14 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       title: "Nước mắm 584",
       buyType: "fishsauce",
+            /* ===== SLIDER DATA ===== */
+      slides: [
+        { src: "img/nm584/60nb.png", caption: "60° đạm – Chai 200ml (đặc biệt)" },
+        { src: "img/nm584/40nb.png", caption: "40° đạm – Chai 500ml" },
+        { src: "img/nm584/30nb.png", caption: "30° đạm – Chai 500ml" },
+        { src: "img/nm584/25nb.png", caption: "25° đạm – Chai 500ml" },
+        { src: "img/nm584/12nb.jpg", caption: "12° đạm – Can 5 lít" },
+      ],
       options: {
         "12": { bottle: "5 lít",  price: 90000 },
         "25": { bottle: "500ml", price: 35000 },
@@ -99,33 +168,41 @@ Màu vàng rơm – vị đậm đà<br>
   ];
 
   /*********************************
+   * RENDER SLIDER
+   *********************************/
+
+ 
+
+  /*********************************
    * CLICK CARD → CHI TIẾT
    *********************************/
   cards.forEach((card, index) => {
     const product = data[index];
     if (!product) return;
 
-    card.addEventListener("click", () => {
+    card.onclick = () => {
       cardWrapper.style.display = "none";
       detail.classList.remove("hidden");
 
       title.textContent = product.title;
-      title.style.color = "#2d6a4f";
       desc.innerHTML = product.desc;
 
-      // ===== CHUYỂN BUY BOX =====
       fruitBox.classList.add("hidden");
       fsBox.classList.add("hidden");
+      fsSlider.classList.add("hidden");
 
       if (product.buyType === "fishsauce") {
         fsBox.classList.remove("hidden");
+        fsSlider.classList.remove("hidden");
+
+initFishSlide(product.slides);
+
         initFishSauce(product);
       } else {
         fruitBox.classList.remove("hidden");
         calcTotal();
       }
 
-      // ===== GALLERY =====
       gallery.innerHTML = "";
       product.media.forEach(src => {
         gallery.insertAdjacentHTML(
@@ -137,106 +214,48 @@ Màu vàng rơm – vị đậm đà<br>
       });
 
       window.scrollTo({ top: 0, behavior: "smooth" });
-    });
+    };
   });
 
   /*********************************
    * BACK BUTTON
    *********************************/
-  document.querySelector(".back-btn")?.addEventListener("click", () => {
+  document.querySelector(".back-btn").onclick = () => {
     detail.classList.add("hidden");
     cardWrapper.style.display = "grid";
     window.scrollTo({ top: 0, behavior: "smooth" });
-  });
+  };
 
   /*********************************
-   * POPUP MEDIA
+   * POPUP CLOSE
    *********************************/
-  document.addEventListener("click", e => {
-    const target = e.target.closest(".gallery img, .gallery video");
-    if (!target) return;
-
-    popup.classList.remove("hidden");
-    popupContent.innerHTML = target.outerHTML;
-    document.body.style.overflow = "hidden";
-  });
-
   function closePopup() {
     popup.classList.add("hidden");
     popupContent.innerHTML = "";
     document.body.style.overflow = "";
   }
 
-  closePopupBtn?.addEventListener("click", closePopup);
-  popup.addEventListener("click", e => {
-    if (e.target === popup) closePopup();
-  });
-  document.addEventListener("keydown", e => {
-    if (e.key === "Escape") closePopup();
-  });
+  closePopupBtn.onclick = closePopup;
+  popup.onclick = e => e.target === popup && closePopup();
+  document.addEventListener("keydown", e => e.key === "Escape" && closePopup());
 
   /*********************************
-   * MUA HÀNG (TRÁI CÂY)
+   * TRÁI CÂY
    *********************************/
   const qtyInput = document.getElementById("qty");
   const boxSelect = document.getElementById("box");
   const sizeSelect = document.getElementById("size");
   const totalEl = document.getElementById("total");
 
-  const PRICE_BY_SIZE = {
-    small: 180000,
-    medium: 220000,
-    large: 260000
-  };
+  const PRICE_BY_SIZE = { small: 180000, medium: 220000, large: 260000 };
 
   function calcTotal() {
-    const qty  = +qtyInput.value;
-    const box  = +boxSelect.value;
-    const size = sizeSelect.value;
-
-    const price = PRICE_BY_SIZE[size] || 0;
-    const total = qty * box * price;
-
-    totalEl.textContent = total.toLocaleString("vi-VN") + "₫";
+    totalEl.textContent =
+      (qtyInput.value * boxSelect.value * PRICE_BY_SIZE[sizeSelect.value])
+        .toLocaleString("vi-VN") + "₫";
   }
 
-  qtyInput?.addEventListener("input", calcTotal);
-  boxSelect?.addEventListener("change", calcTotal);
-  sizeSelect?.addEventListener("change", calcTotal);
-
-  document.querySelector(".qty-plus")?.addEventListener("click", () => {
-    qtyInput.value++;
-    calcTotal();
-  });
-
-  document.querySelector(".qty-minus")?.addEventListener("click", () => {
-    qtyInput.value = Math.max(1, qtyInput.value - 1);
-    calcTotal();
-  });
-
-  document.querySelector(".cancel-btn")?.addEventListener("click", () => {
-    qtyInput.value = 1;
-    boxSelect.value = "0.5";
-    sizeSelect.value = "small";
-    calcTotal();
-  });
-
-  document.querySelector(".buy-btn")?.addEventListener("click", () => {
-    const size = sizeSelect.value;
-    const sizeLabel =
-      size === "small" ? "Nhỏ" :
-      size === "medium" ? "Vừa" : "To";
-
-    addToCart({
-      title: `${title.textContent} (${sizeLabel})`,
-      qty: +qtyInput.value,
-      box: boxSelect.value,
-      price: PRICE_BY_SIZE[size],
-      total: parseInt(totalEl.textContent.replace(/\D/g, ""))
-    });
-
-    showCartToast();
-  });
+  qtyInput.oninput = boxSelect.onchange = sizeSelect.onchange = calcTotal;
 
   /*********************************
    * NƯỚC MẮM
@@ -248,36 +267,18 @@ Màu vàng rơm – vị đậm đà<br>
     const totalEl = document.getElementById("fs-total");
 
     proteinEl.innerHTML = "";
-
-    Object.keys(product.options).forEach(p => {
-      proteinEl.insertAdjacentHTML(
-        "beforeend",
-        `<option value="${p}">${p}° đạm</option>`
-      );
-    });
+    Object.keys(product.options).forEach(p =>
+      proteinEl.insertAdjacentHTML("beforeend", `<option value="${p}">${p}° đạm</option>`)
+    );
 
     function calc() {
       const opt = product.options[proteinEl.value];
       bottleEl.value = opt.bottle;
-      totalEl.textContent =
-        (qtyEl.value * opt.price).toLocaleString("vi-VN") + "₫";
+      totalEl.textContent = (qtyEl.value * opt.price).toLocaleString("vi-VN") + "₫";
     }
 
-    qtyEl.oninput = calc;
-    proteinEl.onchange = calc;
+    qtyEl.oninput = proteinEl.onchange = calc;
     calc();
-
-    document.querySelector(".buy-btn-fs").onclick = () => {
-      addToCart({
-        title: `${product.title} (${proteinEl.value}° - ${bottleEl.value})`,
-        qty: +qtyEl.value,
-        box: bottleEl.value,
-        price: product.options[proteinEl.value].price,
-        total: +totalEl.textContent.replace(/\D/g, "")
-      });
-
-      showCartToast();
-    };
   }
 
 });

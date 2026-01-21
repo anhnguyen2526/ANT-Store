@@ -421,33 +421,6 @@ h1 {
   }
 }
 
-/* ===== DETAIL LAYOUT PC – ÁP DỤNG CHO TẤT CẢ SP ===== */
-@media (min-width: 900px) {
-
-  .product-detail {
-    display: grid;
-    grid-template-columns: 1fr 1.4fr;
-    gap: 40px;
-    align-items: start;
-  }
-
-  /* gom info + box mua bên trái */
-  .product-info {
-    text-align: left;
-    order: 1;
-  }
-
-  .buy-box {
-    order: 2;
-    margin-left: 0;
-    margin-top: -25px;
-  }
-
-  .product-media {
-    order: 3;
-  }
-}
-
 /* ===== THU GỌN FIELD TRONG BOX MUA ===== */
 .buy-box .field {
   align-items: center;
@@ -463,3 +436,187 @@ h1 {
   padding: 3px 6px;
   font-size: 12px;
 }
+
+/* ==============================
+   SLIDE NƯỚC MẮM – LAYOUT MỚI
+================================ */
+
+/* khung slide */
+.fs-slider {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto 18px;
+  padding: 10px 36px; /* chừa chỗ cho nút ← → */
+  box-sizing: border-box;
+}
+
+/* container 3 hình */
+.fs-slider {
+  overflow: hidden; /* ẩn ảnh dư */
+}
+
+.fs-slide {
+  display: flex;
+  gap: 10px;
+  transition: transform 0.45s cubic-bezier(.4,0,.2,1);
+  will-change: transform;
+}
+
+.fs-slide img {
+  flex: 0 0 calc((100% - 20px) / 3); /* đúng 3 ảnh */
+}
+
+/* ảnh nhỏ */
+.fs-slide img {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+  transition: transform 0.25s ease;
+}
+
+.fs-slide img:hover {
+  transform: scale(1.06);
+}
+
+/* caption ẩn (chỉ dùng popup) */
+.fs-caption {
+  display: none;
+}
+
+/* nút trái / phải nằm trong khung */
+.fs-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+
+  background: rgba(0,0,0,0.55);
+  color: white;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.fs-nav.left {
+  left: 6px;
+}
+
+.fs-nav.right {
+  right: 6px;
+}
+
+.fs-nav:hover {
+  background: rgba(0,0,0,0.8);
+}
+
+/* ==============================
+   PC: đặt slide bên trái cột
+================================ */
+@media (min-width: 900px) {
+
+  .product-detail {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  /* NÚT QUAY LẠI: full hàng trên */
+  .back-btn {
+     order: 0;
+  }
+
+  /* CỘT TRÁI */
+  .fs-slider {
+    grid-column: 1 / 2;
+    order: 1;
+  }
+
+  .buy-box {
+    grid-column: 1 / 2;
+    order: 2;
+    margin-top: 0;
+  }
+
+  /* CỘT PHẢI */
+  .product-info {
+    grid-column: 2 / 3;
+    order: 3;
+    margin-top: 0;
+    text-align: left;
+  }
+
+  .product-media {
+    grid-column: 2 / 3;
+    order: 4;
+  }
+}
+
+/* ==============================
+   MOBILE
+================================ */
+@media (max-width: 700px) {
+  .fs-slide img {
+    height: 90px;
+  }
+}
+
+/* =================================
+   FIX DETAIL GRID – ALIGN HEADER
+================================= */
+@media (min-width: 900px) {
+
+  .product-detail {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    grid-template-areas:
+      "back info"
+      "slide info"
+      "buy  media";
+    gap: 40px;
+    align-items: start;
+  }
+
+  /* ===== HEADER ROW ===== */
+  .back-btn {
+    grid-area: back;
+    justify-self: start;
+    align-self: start;
+
+    padding: 4px 10px;
+    font-size: 13px;
+    border-radius: 6px;
+    margin: 0;
+  }
+
+  .product-info {
+    grid-area: info;
+    text-align: left;
+    margin: 0;
+  }
+
+  /* ===== CỘT TRÁI ===== */
+  .fs-slider {
+    grid-area: slide;
+  }
+
+  .buy-box {
+    grid-area: buy;
+    margin-top: 0;
+  }
+
+  /* ===== CỘT PHẢI ===== */
+  .product-media {
+    grid-area: media;
+  }
+}
+
