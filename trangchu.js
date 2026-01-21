@@ -92,7 +92,8 @@ Màu vàng rơm – vị đậm đà<br>
 `,
       media: [
         "img/nm584/nm1.jpg","img/nm584/nm2.jpg",
-        "img/nm584/nm3.jpg","img/nm584/nm4.jpg"
+        "img/nm584/nm3.jpg","img/nm584/nm4.jpg",
+        "img/nm584/nm5.jpg","img/nm584/nm6.jpg"
       ]
     }
   ];
