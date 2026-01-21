@@ -106,7 +106,7 @@ function updateFishSlide() {
 <strong>🍓 Dâu tươi Mộc Châu - Sơn La</strong><br>
 🌿 Trồng tại cao nguyên mát lành<br>
 🧺 Thu hoạch trong ngày – không bảo quản<br>
-✈️ Ship toàn quốc
+✈️ Ship toàn quốc - Đặc biết TP.HCM
 `,
       media: [
         "img/daumocchau/dau1.jpg","img/daumocchau/dau2.jpg","img/daumocchau/dau3.jpg",
